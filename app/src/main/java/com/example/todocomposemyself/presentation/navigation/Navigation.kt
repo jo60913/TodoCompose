@@ -3,6 +3,8 @@ package com.example.todocomposemyself.presentation.navigation
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -47,10 +49,13 @@ fun SetUpNavigation(
             })
         ) { navBackStackEntry ->
             val taskID = navBackStackEntry.arguments!!.getInt(TASK_ARGUMENT_KEY)
+            val selectedTask by viewModel.selectedTask.collectAsState()
             LaunchedEffect(key1 = taskID){
-                viewModel.getSelectedTask(taskId = taskID)
+                if(selectedTask != null || taskID == -1)
+                    viewModel.getSelectedTask(taskId = taskID)
             }
             TaskScreen(
+                selectedTask = selectedTask,
                 naviController = naviController,
                 viewModel = viewModel
             )

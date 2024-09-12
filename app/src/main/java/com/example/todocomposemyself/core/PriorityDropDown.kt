@@ -61,22 +61,26 @@ fun PriorityDropDown(
         ) {
             Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = "優先權")
         }
-    }
 
-    DropdownMenu(
-        expanded = expend,
-        onDismissRequest = { expend = false }
-    ) {
-        for(priorityItem in Priority.values()){
-            DropdownMenuItem(
-                text = { PriorityItem(priority = priorityItem) },
-                onClick = {
-                    expend = false
-                    onPrioritySelected(priorityItem)
-                }
-            )
+        DropdownMenu(
+            modifier = Modifier
+                .fillMaxWidth(fraction = 0.94f),
+            expanded = expend,
+            onDismissRequest = { expend = false }
+        ) {
+            for(priorityItem in Priority.values()){
+                DropdownMenuItem(
+                    text = { PriorityItem(priority = priorityItem) },
+                    onClick = {
+                        expend = false
+                        onPrioritySelected(priorityItem)
+                    }
+                )
+            }
         }
     }
+
+
 }
 
 @Preview
