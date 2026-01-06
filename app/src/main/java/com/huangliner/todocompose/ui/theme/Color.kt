@@ -23,24 +23,24 @@ val NonePriorityColor = MediumGray
 
 val ColorScheme.splashScreenBackground: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) Purple700 else Color.Black
+    get() = if (isSystemInDarkTheme()) Color.Black else Purple700
 
 val ColorScheme.taskItemTextColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) DarkGray else LightGray
+    get() = if (isSystemInDarkTheme()) LightGray else DarkGray
 
 val ColorScheme.taskItemBackgroundColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) Color.White else DarkGray
+    get() = if (isSystemInDarkTheme()) DarkGray else Color.White
 
 val ColorScheme.fabBackgroundColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) Teal200 else Purple700
+    get() = if (isSystemInDarkTheme()) Purple700 else Teal200
 
 val ColorScheme.topAppBarContentColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) Color.White else LightGray
+    get() = if (isSystemInDarkTheme()) LightGray else Color.White
 
 val ColorScheme.topAppBarBackgroundColor: Color
     @Composable
-    get() = if (isSystemInDarkTheme()) Purple500 else Color.Black
+    get() = if (isSystemInDarkTheme()) Color.Black else Purple500
