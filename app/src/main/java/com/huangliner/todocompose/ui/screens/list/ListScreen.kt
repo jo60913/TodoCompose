@@ -3,13 +3,16 @@ package com.huangliner.todocompose.ui.screens.list
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.huangliner.todocompose.R
+import com.huangliner.todocompose.ui.theme.fabBackgroundColor
 
 @Composable
 fun ListScreen(
@@ -28,9 +31,10 @@ fun ListScreen(
 fun ListFab(
     onFabClick: (Int) -> Unit
 ) {
-    FloatingActionButton(onClick = {
-        onFabClick(-1)
-    }) {
+    FloatingActionButton(
+        onClick = { onFabClick(-1) },
+        contentColor = MaterialTheme.colorScheme.fabBackgroundColor
+    ) {
         Icon(
             imageVector = Icons.Filled.Add,
             contentDescription = stringResource(R.string.add_button),
