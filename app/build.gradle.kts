@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.accompanist.navigation.animation)
     kapt(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
