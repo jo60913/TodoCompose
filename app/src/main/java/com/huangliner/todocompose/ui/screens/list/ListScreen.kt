@@ -1,5 +1,7 @@
 package com.huangliner.todocompose.ui.screens.list
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -7,7 +9,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,6 +26,10 @@ fun ListScreen(
     navigateToTaskScreen: (Int) -> Unit,
     sharedViewModel: SharedViewModel
 ) {
+    LaunchedEffect(true) {
+        sharedViewModel.getAllTask()
+    }
+    val allTasks by sharedViewModel.allTask.collectAsState()
     val searchAppBarState :SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
     Scaffold(
@@ -32,7 +41,12 @@ fun ListScreen(
             )
         },
         content = { padding ->
-            ListContent()
+            Box(modifier = Modifier.padding(padding)) {
+                ListContent(
+                    tasks = allTasks,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+            }
         },
         floatingActionButton = {
             ListFab(onFabClick = navigateToTaskScreen)
