@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.to_docompose.data.models.Priority
 import com.example.to_docompose.data.models.ToDoTask
+import com.example.to_docompose.util.RequestState
 import com.huangliner.todocompose.ui.theme.LARGE_PADDING
 import com.huangliner.todocompose.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.huangliner.todocompose.ui.theme.TASK_ITEM_ELEVATION
@@ -31,16 +32,23 @@ import com.huangliner.todocompose.ui.theme.taskItemTextColor
 
 @Composable
 fun ListContent(
-    tasks: List<ToDoTask>,
+    tasks: RequestState<List<ToDoTask>>,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
-    if (tasks.isEmpty())
-        EmptyContent()
-    else
-        DisplayTasks(
-            tasks = tasks,
-            navigateToTaskScreen = navigateToTaskScreen
-        )
+    when (tasks) {
+        is RequestState.Error -> {}
+        RequestState.Idle -> {}
+        RequestState.Loading -> {}
+        is RequestState.Success -> {
+            if (tasks.data.isEmpty())
+                EmptyContent()
+            else
+                DisplayTasks(
+                    tasks = tasks.data,
+                    navigateToTaskScreen = navigateToTaskScreen
+                )
+        }
+    }
 }
 
 @Composable
