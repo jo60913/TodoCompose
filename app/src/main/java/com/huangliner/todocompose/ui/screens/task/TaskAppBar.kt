@@ -26,9 +26,41 @@ import com.huangliner.todocompose.ui.theme.topAppBarContentColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskAppBar(
-    navigationToListScreen: (Action) -> Unit
+    navigationToListScreen: (Action) -> Unit,
+    todoTask: ToDoTask?
 ) {
-    NewTaskAppBar(navigationToListScreen = navigationToListScreen)
+    if(todoTask == null)
+        NewTaskAppBar(navigationToListScreen = navigationToListScreen)
+    else
+        ExistingTaskAppBar(
+            navigationToListScreen = navigationToListScreen,
+            todoTask = todoTask
+        )
+}
+
+@ExperimentalMaterial3Api
+@Composable
+fun ExistingTaskAppBar(
+    todoTask: ToDoTask,
+    navigationToListScreen: (Action) -> Unit
+){
+    TopAppBar(
+        navigationIcon = {
+            BackAction(onBackClicked = navigationToListScreen)
+        },
+        title = {
+            Text(
+                text = todoTask.title, color = MaterialTheme.colorScheme.topAppBarContentColor
+            )
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.topAppBarBackgroundColor
+        ),
+        actions = {
+            DeleteAction(onDeletedClicked = navigationToListScreen)
+            AddAction(onAddClicked = navigationToListScreen)
+        }
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -85,35 +117,35 @@ fun AddAction(
     }
 }
 
-@ExperimentalMaterial3Api
-@Composable
-fun ExistingTaskAppBar(
-    selectedTask:ToDoTask,
-    navigationToListScreen: (Action) -> Unit
-) {
-    TopAppBar(
-        navigationIcon = {
-            CloseAction(
-                onCloseClicked = navigationToListScreen
-            )
-        },
-        title = {
-            Text(
-                text = selectedTask.title,
-                color = MaterialTheme.colorScheme.topAppBarContentColor,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.topAppBarBackgroundColor
-        ),
-        actions = {
-            DeleteAction(onDeletedClicked = navigationToListScreen)
-            UpdateAction(onUpdateDelete = navigationToListScreen)
-        }
-    )
-}
+//@ExperimentalMaterial3Api
+//@Composable
+//fun ExistingTaskAppBar(
+//    selectedTask:ToDoTask,
+//    navigationToListScreen: (Action) -> Unit
+//) {
+//    TopAppBar(
+//        navigationIcon = {
+//            CloseAction(
+//                onCloseClicked = navigationToListScreen
+//            )
+//        },
+//        title = {
+//            Text(
+//                text = selectedTask.title,
+//                color = MaterialTheme.colorScheme.topAppBarContentColor,
+//                maxLines = 1,
+//                overflow = TextOverflow.Ellipsis
+//            )
+//        },
+//        colors = TopAppBarDefaults.topAppBarColors(
+//            containerColor = MaterialTheme.colorScheme.topAppBarBackgroundColor
+//        ),
+//        actions = {
+//            DeleteAction(onDeletedClicked = navigationToListScreen)
+//            UpdateAction(onUpdateDelete = navigationToListScreen)
+//        }
+//    )
+//}
 
 @Composable
 fun CloseAction(
@@ -174,7 +206,7 @@ fun NewTaskAppBarPreview() {
 @Preview
 fun ExistingTaskAppBarPreview() {
     ExistingTaskAppBar(
-        selectedTask = ToDoTask(id = 0,"title", description = "des",Priority.MEDIUM),
+        todoTask = ToDoTask(id = 0,"title", description = "des",Priority.MEDIUM),
         navigationToListScreen = {}
     )
 }

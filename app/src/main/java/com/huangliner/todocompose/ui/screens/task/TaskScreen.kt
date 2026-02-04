@@ -23,6 +23,7 @@ fun TaskScreen(
     Scaffold(
         topBar = {
             TaskAppBar(
+                todoTask = selectTask,
                 navigationToListScreen = navigationToListScreen
             )
         },
