@@ -20,12 +20,12 @@ fun SetupNavigation(
 
     NavHost(navController = navController, startDestination = LIST_SCREEN) {
         listComposable(
-            navigateToTaskScreen = screen.task,
+            navigateToTaskScreen = screen.list,
             sharedViewModel = sharedViewModel
         )
 
         taskComposable (
-            navigateToListScreen = screen.list,
+            navigateToListScreen = screen.task,
             sharedViewModel = sharedViewModel
         )
     }

@@ -58,7 +58,7 @@ fun ExistingTaskAppBar(
         ),
         actions = {
             DeleteAction(onDeletedClicked = navigationToListScreen)
-            AddAction(onAddClicked = navigationToListScreen)
+            UpdateAction(onUpdateDelete = navigationToListScreen)
         }
     )
 }
@@ -82,7 +82,6 @@ fun NewTaskAppBar(
         ),
         actions = {
             AddAction(onAddClicked = navigationToListScreen)
-
         }
     )
 }
